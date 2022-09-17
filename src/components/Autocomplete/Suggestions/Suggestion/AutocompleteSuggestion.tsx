@@ -25,5 +25,5 @@ export const AutocompleteSuggestion: FC<Props> = ({ person }) => {
     >
       {person.name}
     </option>
-  )
+  );
 }

@@ -44,5 +44,5 @@ export const Autocomplete = () => {
         <Suggestions options={people} />
       )}
     </div>
-  )
+  );
 }

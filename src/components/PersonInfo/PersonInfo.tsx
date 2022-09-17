@@ -23,5 +23,5 @@ export const PersonInfo = () => {
         close
       </button>
     </div>
-  )
+  );
 }
