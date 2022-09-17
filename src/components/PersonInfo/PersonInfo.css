@@ -1,0 +1,11 @@
+.personContainer {
+  background-color: whitesmoke;
+  border: 1px solid black;
+  box-shadow: 9px 0px 18px -4px rgba(0,0,0,0.75);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  width: 400px;
+  margin: 0 auto;
+}
