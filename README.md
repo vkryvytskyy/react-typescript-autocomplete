@@ -5,8 +5,15 @@ Simple react autocomplete with typescript
 [DEMO](https://vkryvytskyy.github.io/react-typescript-autocomplete/)
 
 ## Or run locall
-- git clone
-- npm i
-- npm start
+```bash
+-- clone projects
+git clone
+
+-- install dependencies
+npm i
+
+-- run project
+npm start
+```
 
 You should see http://localhost:3000 opened automatically(Or you can open it by yourself, if something went wrong :) )
