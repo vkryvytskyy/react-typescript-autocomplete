@@ -1,0 +1,14 @@
+.option {
+  padding: 8px 16px;
+  background-color: transparent;
+  transition: background-color .3s ease;
+}
+
+.option:hover {
+  cursor: pointer;
+  background-color: azure;
+}
+
+.option:not(:last-child) {
+  border-bottom: 1px solid rgba(0,0,255,0.3);
+}
