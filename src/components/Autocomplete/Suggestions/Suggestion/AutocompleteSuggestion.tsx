@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { useAppContext } from '../../../../contexts/AppContext';
 import { Person } from '../../../../typedefs';
+import { getMatchingPart } from './getMatchingPart';
 import './AutocompleteSuggestion.css'
 
 interface Props {
@@ -8,7 +9,7 @@ interface Props {
 }
 
 export const AutocompleteSuggestion: FC<Props> = ({ person }) => {
-  const { setSelectedPerson, setQuery } = useAppContext();
+  const { setSelectedPerson, setQuery, query } = useAppContext();
 
   return (
     <option
@@ -22,8 +23,10 @@ export const AutocompleteSuggestion: FC<Props> = ({ person }) => {
           setQuery('');
         }
       }}
-    >
-      {person.name}
-    </option>
+      dangerouslySetInnerHTML={{
+        __html: getMatchingPart(query ?? '', person.name),
+      }}
+      value={person.name}
+    />
   );
 }

@@ -13,9 +13,21 @@ interface FetchSuggestions {
 }
 
 export const fetchSuggestions: FetchSuggestions = async (query) => {
-  const response = await fetch(`${API_URL}?search=${query}`);
+  let people: ApiResponse = {
+    count: 0,
+    next: '',
+    results: [],
+  }
 
-  const people = await response.json() as ApiResponse;
+  try {
+    const response = await fetch(`${API_URL}?search=${query}`);
+
+    people = await response.json() as ApiResponse;
+  
+    return people;
+  } catch (e) {
+    console.log(e);
+  }
 
   return people;
 }
