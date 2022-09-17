@@ -1,2 +1,2 @@
 # react-typescript-autocomplete
-Simple react autocomplete with react
+Simple react autocomplete with typescript
