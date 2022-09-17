@@ -8,7 +8,7 @@ export const PersonInfo = () => {
   return (
     <div className='personContainer'>
       <h2>{selectedPerson?.name}</h2>
-      <ul>
+      <ul className='specs'>
         <li>height: {selectedPerson?.height}</li>
         <li>mass: {selectedPerson?.mass}</li>
         <li>hairColor: {selectedPerson?.hair_color}</li>

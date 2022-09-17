@@ -34,6 +34,7 @@ export const Autocomplete = () => {
             setQuery(e.target.value)
           }
         }}
+        value={query}
         className='input'
       />
       {/* TOTAL RESULTS FOUND BY QUERY, MAX 10 WILL BE SHOWN CAUSE OF PAGINATION */}
