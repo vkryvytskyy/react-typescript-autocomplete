@@ -29,6 +29,7 @@ export const Autocomplete = () => {
     <div className='autocompleteContainer'>
       <input
         type='text'
+        placeholder='type in name...'
         onChange={(e) => {
           if (setQuery) {
             setQuery(e.target.value)
