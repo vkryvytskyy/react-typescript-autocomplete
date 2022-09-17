@@ -6,13 +6,13 @@ Simple react autocomplete with typescript
 
 ## Or run locall
 ```bash
--- clone projects
-git clone
+# clone project
+git clone git@github.com:vkryvytskyy/react-typescript-autocomplete.git
 
--- install dependencies
+# install dependencies
 npm i
 
--- run project
+# run project
 npm start
 ```
 
