@@ -1,3 +1,4 @@
+import { SetStateAction, Dispatch } from "react";
 import { Person } from "../typedefs"
 
 const API_URL = `https://swapi.dev/api/people/`;
@@ -9,25 +10,34 @@ interface ApiResponse {
 }
 
 interface FetchSuggestions {
-  (query: string): Promise<ApiResponse>
+  (
+    query: string,
+    setPeople: Dispatch<SetStateAction<Person[]>>,
+    setIsLoading: Dispatch<SetStateAction<boolean>>,
+  ): void
 }
 
-export const fetchSuggestions: FetchSuggestions = async (query) => {
-  let people: ApiResponse = {
-    count: 0,
-    next: '',
-    results: [],
-  }
+export const fetchSuggestions: FetchSuggestions = async (query, setPeople, setIsLoading) => {
+  setIsLoading(true);
 
-  try {
-    const response = await fetch(`${API_URL}?search=${query}`);
-
-    people = await response.json() as ApiResponse;
+  const request = async () => {
+    let people: ApiResponse = {
+      count: 0,
+      next: '',
+      results: [],
+    }
   
-    return people;
-  } catch (e) {
-    console.log(e);
+    try {
+      const response = await fetch(`${API_URL}?search=${query}`);
+  
+      people = await response.json() as ApiResponse;
+    
+      setPeople(people.results);
+    } catch (e) {
+      console.log(e);
+    }
   }
 
-  return people;
+  await request();
+  setIsLoading(false);
 }

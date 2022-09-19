@@ -1,29 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Suggestions } from './Suggestions/Suggestions';
 import { Person } from '../../typedefs';
 import './Autocomplete.css';
 import { fetchSuggestions } from '../../apiRequests/fetchSuggestions';
 import { useAppContext } from '../../contexts/AppContext';
+import { debounce } from '../../apiRequests/debounce';
 
 export const Autocomplete = () => {
   const { query, setQuery } = useAppContext();
   const [people, setPeople] = useState<Person[]>([]);
-  const [resultsCount, setResultsCount] = useState(0);
-
-  const getQuerySuggestions = async(query: string) => {
-    const suggestions = await fetchSuggestions(query);
-
-    setResultsCount(suggestions.count);
-    setPeople(suggestions.results);
-  }
+  const [isLoading, setIsLoading] = useState(false);
+  const debouncedFetchSuggestions = useCallback(debounce((query: string) => fetchSuggestions(query, setPeople, setIsLoading), 250), []);
 
   useEffect(() => {
     if (query?.length && query?.length > 0) {
-      getQuerySuggestions(query);
+      debouncedFetchSuggestions(query, setPeople);
     } else {
-      setResultsCount(0);
+      setPeople([]);
     }
-  }, [query]);  
+
+    return () => {
+      debouncedFetchSuggestions.clear();
+    };
+  }, [query, debouncedFetchSuggestions]);  
 
   return (
     <div className='autocompleteContainer'>
@@ -31,19 +30,15 @@ export const Autocomplete = () => {
         type='text'
         placeholder='type in name...'
         onChange={(e) => {
+          setIsLoading(true)
           if (setQuery) {
             setQuery(e.target.value)
           }
         }}
-        value={query}
         className='input'
       />
-      {/* TOTAL RESULTS FOUND BY QUERY, MAX 10 WILL BE SHOWN CAUSE OF PAGINATION */}
-      {resultsCount > 0 && (
-        <h3 className='suggestionsTitle'>{`${resultsCount} results found`}</h3>
-      )}
       {(query?.length !== undefined && query?.length > 0) && (
-        <Suggestions options={people} />
+        <Suggestions options={people} isLoading={isLoading} />
       )}
     </div>
   );
